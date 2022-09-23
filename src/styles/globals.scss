@@ -1,0 +1,97 @@
+/* https://colorhunt.co/palette/37e2d5590696c70a80fbcb0a */
+
+$primary-color: #37e2d5;
+$secondary-color: #590696;
+$third-color: #c70a80;
+$fourth-color: #fbcb0a;
+
+@import url('./reset.scss');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+  background-color: $primary-color;
+  font-family: 'Montserrat', sans-serif;
+  padding: 2vh 5vw;
+  color: white;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $fourth-color;
+}
+
+button {
+  cursor: pointer;
+  border: 4px solid $third-color;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: $fourth-color;
+  color: $third-color;
+  font-weight: 700;
+  transition: 0.1s;
+}
+
+button:hover {
+  background-color: $third-color;
+  color: $fourth-color;
+}
+
+button:active {
+  background-color: $secondary-color;
+  color: $fourth-color;
+}
+
+input {
+  border: 4px solid $third-color;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.padding-y {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+.card {
+  border: 4px solid $third-color;
+  border-radius: 1rem;
+  background-color: $secondary-color;
+  padding: 1rem;
+  width: 300px;
+}
