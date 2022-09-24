@@ -1,18 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] =
     useState('');
   const [idCount, setIdCount] = useState(0);
-
-  useEffect(() => {
-    const tAux = tasks.filter(
-      t => t.list !== 'inprocess'
-    );
-
-    console.log(tAux);
-  }, [tasks]);
 
   const addTask = t => {
     if (t) {
@@ -36,11 +28,18 @@ function App() {
   };
 
   const moveTask = t => {
-    const pos = tasks.indexOf(t);
-    const tasksAux = tasks;
-    tasksAux[pos].list = 'finished';
-    setTasks(tasksAux);
-    console.log(tasks);
+    const tasksAux = tasks.filter(
+      task => task.id !== t.id
+    );
+    setTasks([
+      ...tasksAux,
+      {
+        name: t.name,
+        id: idCount,
+        list: 'finished',
+      },
+    ]);
+    setIdCount(idCount + 1);
   };
 
   return (
@@ -71,26 +70,32 @@ function App() {
           In Process
         </h2>
         <ul>
-          {tasks.map((task, i) => (
-            <li
-              className="flex flex-space-between margin-bottom"
-              key={i}
-            >
-              ⏳ {task.name}
-              <div>
-                <button
-                  onClick={() => moveTask(task)}
-                >
-                  🎉
-                </button>{' '}
-                <button
-                  onClick={() => delTask(task.id)}
-                >
-                  ❌
-                </button>
-              </div>
-            </li>
-          ))}
+          {tasks
+            .filter(
+              task => task.list === 'inprocess'
+            )
+            .map((task, i) => (
+              <li
+                className="flex flex-space-between margin-bottom"
+                key={i + 'inprocess'}
+              >
+                ⏳ {task.name}
+                <div>
+                  <button
+                    onClick={() => moveTask(task)}
+                  >
+                    🎉
+                  </button>{' '}
+                  <button
+                    onClick={() =>
+                      delTask(task.id)
+                    }
+                  >
+                    ❌
+                  </button>
+                </div>
+              </li>
+            ))}
         </ul>
         {tasks.length === 0 && (
           <p className="margin-bottom">
@@ -103,21 +108,27 @@ function App() {
           Finished
         </h2>
         <ul>
-          {tasks.map((task, i) => (
-            <li
-              className="flex flex-space-between margin-bottom"
-              key={i}
-            >
-              🎉 {task.name}
-              <div>
-                <button
-                  onClick={() => delTask(task.id)}
-                >
-                  ❌
-                </button>
-              </div>
-            </li>
-          ))}
+          {tasks
+            .filter(
+              task => task.list === 'finished'
+            )
+            .map((task, i) => (
+              <li
+                className="flex flex-space-between margin-bottom"
+                key={i + 'finished'}
+              >
+                🎉 {task.name}
+                <div>
+                  <button
+                    onClick={() =>
+                      delTask(task.id)
+                    }
+                  >
+                    ❌
+                  </button>
+                </div>
+              </li>
+            ))}
         </ul>
         {tasks.length === 0 && (
           <p className="margin-bottom">
